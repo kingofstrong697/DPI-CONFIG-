@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('https://anhgaixinh.tv/wp-content/uploads/2023/05/anh-gai-xinh-khoe-vong-1.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .panel {
+            border: 1px solid transparent;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+        .panel-heading {
+            font-size: 1.75em; /* Tăng kích thước chữ */
+            margin-bottom: 8px;
+            background: linear-gradient(45deg, #ff6ec4, #7873f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .panel-body {
+            font-size: 1em;
+        }
+        .hidden {
+            display: none;
+        }
+        .btn {
+            padding: 8px 16px;
+            margin-top: 8px;
+            cursor: pointer;
+            border-radius: 12px;
+            color: white;
+            width: 100%;
+            max-width: 200px;
+            box-sizing: border-box;
+            background: linear-gradient(45deg, #ff6ec4, #7873f5);
+            border: none;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background: linear-gradient(45deg, #7873f5, #ff6ec4);
+        }
+        .btn-green {
+            background-color: green;
+            color: white;
+        }
+        input {
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            width: 100%;
+            max-width: 300px;
+            box-sizing: border-box;
+        }
+        input::placeholder {
+            color: #aaa;
+        }
+        .gradient-text {
+            background: linear-gradient(45deg, #ff6ec4, #7873f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .dev-text {
+            font-size: 1.25em; /* Tăng kích thước chữ Dev: Rin */
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 34px;
+            height: 20px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+        input:checked + .slider:before {
+            transform: translateX(14px);
+        }
+    </style>
+</head>
+<body>
+    <div id="panel1" class="panel">
+        <div class="panel-heading gradient-text">App Config by RIN</div>
+        <div class="panel-body">
+            <input type="text" id="deviceName" placeholder="Nhập tên thiết bị của bạn">
+            <button class="btn" onclick="enterDevice()">Enter</button><br><br>
+            <div id="deviceMessage" class="hidden"></div>
+            <div id="currentTime"></div><br>
+            <input type="text" id="question" placeholder="Rin chim có dài ko?"><br><br>
+            <button class="btn" onclick="answerQuestion()">Trả lời</button><br><br>
+        </div>
+    </div>
+
+    <div id="panel2" class="panel hidden">
+        <div class="panel-heading gradient-text">SENSIVITY BUFF</div>
+        <div class="panel-body">
+            <label class="switch">
+                <input type="checkbox" id="sensitivitySwitch" onclick="toggleSensitivity()">
+                <span class="slider"></span>
+            </label>
+            <span>SENSIVITY BUFF</span><br><br>
+            <label class="switch">
+                <input type="checkbox" id="antibandSwitch" onclick="toggleAntiband()">
+                <span class="slider"></span>
+            </label>
+            <span>ANTIBAND</span><br><br>
+            <label class="switch">
+                <input type="checkbox" id="unlockSwitch" onclick="toggleUnlock()">
+                <span class="slider"></span>
+            </label>
+            <span>UNLOCK NHẸ TÂM DEMO</span><br><br>
+            <div class="gradient-text dev-text">Dev: Rin</div>
+        </div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('currentTime').innerText = `Giờ hiện tại: ${timeString}`;
+        }
+
+        setInterval(updateTime, 1000);
+
+        function enterDevice() {
+            const deviceName = document.getElementById('deviceName').value;
+            if (deviceName.trim() !== "") {
+                document.getElementById('deviceMessage').innerText = `Đã nhận diện được thiết bị: ${deviceName}`;
+                document.getElementById('deviceMessage').classList.remove('hidden');
+            } else {
+                alert('Vui lòng nhập tên thiết bị của bạn');
+            }
+        }
+
+        function answerQuestion() {
+            const answer = document.getElementById('question').value.toLowerCase();
+            if (answer === "có") {
+                document.getElementById('panel1').classList.add('hidden');
+                document.getElementById('panel2').classList.remove('hidden');
+            } else {
+                alert('Máy nhập có đi rồi tao cho sử dụng đitconmemay');
+            }
+        }
+
+        function toggleSensitivity() {
+            const switchElement = document.getElementById('sensitivitySwitch');
+            if (switchElement.checked) {
+                alert('Rin chim dài đã BUFF SENSI cho game của mày');
+            }
+        }
+
+        function toggleAntiband() {
+            const switchElement = document.getElementById('antibandSwitch');
+            if (switchElement.checked) {
+                alert('Rin chim dài đã kích hoạt ANTIBAND cho máy chúng mày');
+            }
+        }
+
+        function toggleUnlock() {
+            const switchElement = document.getElementById('unlockSwitch');
+            if (switchElement.checked) {
+                alert('Rin chim dài đã UNLOCK NHẸ TÂM DEMO cho máy chúng mày');
+            }
+        }
+    </script>
+</body>
+</html>
